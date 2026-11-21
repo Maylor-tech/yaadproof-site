@@ -19,9 +19,9 @@ module.exports = async (req, res) => {
   const stage = clean(b.stage, 80).replace(/\n/g, ' ');
   const message = clean(b.message, 4000);
 
-  if (!name || !whatsapp || !message) return go('/error.html');
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return go('/error.html');
-  if (!process.env.SMTP_PASS) return go('/error.html');
+  if (!name || !whatsapp || !message) return go('/error.html?r=fields');
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return go('/error.html?r=email');
+  if (!process.env.SMTP_PASS) return go('/error.html?r=nopass');
 
   const user = process.env.SMTP_USER || 'hello@yaadproof.com';
   const t = nodemailer.createTransport({
@@ -45,7 +45,8 @@ module.exports = async (req, res) => {
     });
     return go('/thanks.html');
   } catch (e) {
-    console.error('mail failed', e && e.message);
-    return go('/error.html');
+    console.error('mail failed', e && e.code, e && e.message);
+    const r = e && e.code === 'EAUTH' ? 'auth' : 'send';
+    return go('/error.html?r=' + r);
   }
 };
