@@ -1,0 +1,9 @@
+@font-face{font-family:"DejaVu Sans";src:url(fonts/DejaVuSans.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"DejaVu Sans";src:url(fonts/DejaVuSans-Bold.ttf) format("truetype");font-weight:700;font-display:swap}
+body{margin:0;background:#F7F4EC}
+a{color:#153E32}a:hover{color:#0E2C23}
+summary{cursor:pointer}
+@media (max-width: 600px){.hero-title{font-size:34px !important}.sec-title{font-size:26px !important}}
+html{scroll-behavior:smooth}
+*:focus-visible{outline:3px solid #B38328;outline-offset:2px}
+@media (max-width: 600px){.roof-gallery{grid-template-rows:170px 170px !important}}
